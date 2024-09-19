@@ -1,5 +1,5 @@
+import 'package:admin_web_panel/view/main_screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import '../home_screen.dart';
 
 // ignore: must_be_immutable
 class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -33,7 +33,7 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       leading: showBackButton == true
           ? IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {
                 Navigator.push(
                     context,
@@ -45,15 +45,19 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         titleMsg!,
         style: const TextStyle(
-          letterSpacing: 3.0,
-          color: Colors.white,
           fontSize: 20.0,
-          fontWeight: FontWeight.bold,
+          letterSpacing: 3.0,
+          color: Colors.black,
         ),
       ),
+      centerTitle: true,
+      elevation: 0,
+      backgroundColor: Colors.white,
     );
   }
 
   @override
-  Size get preferredSize => throw UnimplementedError();
+  Size get preferredSize => bottom == null
+      ? const Size.fromHeight(kToolbarHeight)
+      : Size.fromHeight(bottom!.preferredSize.height);
 }

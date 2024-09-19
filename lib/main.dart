@@ -1,5 +1,6 @@
-import 'package:admin_web_panel/view/home_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'view/main_screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
