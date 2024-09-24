@@ -17,7 +17,7 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: showBackButton,s
+      automaticallyImplyLeading: showBackButton,
       flexibleSpace: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
