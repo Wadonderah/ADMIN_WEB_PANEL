@@ -1,24 +1,25 @@
-import 'package:admin_web_panel/global/global_vars.dart';
-import 'package:admin_web_panel/view/widgets/banners_list.dart';
-import 'package:admin_web_panel/view/widgets/my_appbar.dart';
+import 'package:admin_web_panel/global/global_instances.dart';
 import 'package:flutter/material.dart';
-import '../../global/global_instances.dart';
 
-class BannerScreen extends StatefulWidget {
-  const BannerScreen({super.key});
+import '../../global/global_vars.dart';
+import '../widgets/categories_list.dart';
+import '../widgets/my_appbar.dart';
+
+class CategoryScreen extends StatefulWidget {
+  const CategoryScreen({super.key});
 
   @override
-  State<BannerScreen> createState() => _BannerScreenState();
+  State<CategoryScreen> createState() => _CategoryScreenState();
 }
 
-class _BannerScreenState extends State<BannerScreen> {
+class _CategoryScreenState extends State<CategoryScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppbar(
-        titleMsg: "Upload Banners",
+        titleMsg: "Upload Category",
         showBackButton: true,
       ),
       body: SingleChildScrollView(
@@ -86,6 +87,31 @@ class _BannerScreenState extends State<BannerScreen> {
                       ),
 
                       const SizedBox(
+                        width: 20,
+                      ),
+
+                      SizedBox(
+                        width: 200,
+                        child: TextFormField(
+                          onChanged: (valueText) {
+                            categoryName = valueText;
+                          },
+                          validator: (valueText) {
+                            if (valueText!.isEmpty) {
+                              return "Please enter category name";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: const InputDecoration(
+                            label: Text(
+                              "Write Category Name",
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(
                         width: 40,
                       ),
 
@@ -93,18 +119,19 @@ class _BannerScreenState extends State<BannerScreen> {
                       ElevatedButton(
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            if (imageFile == null && categoryName == null) {
+                            if (imageFile != null) {
                               commonViewModel.showSnackBar(
-                                  "Uploading banner...", context);
-                              await bannerViewModel
-                                  .saveBannerImageInfoToFirestore();
+                                  "Uploading Category...", context);
+                              await categoryViewModel
+                                  .saveCategoryInfoToFirestore();
                               setState(() {
                                 formKey.currentState!.reset();
                                 imageFile = null;
+                                categoryName = "";
                               });
                               commonViewModel.showSnackBar(
                                   // ignore: use_build_context_synchronously
-                                  "Banner uploaded successfully",
+                                  "Category uploaded successfully",
                                   // ignore: use_build_context_synchronously
                                   context);
                             }
@@ -145,8 +172,7 @@ class _BannerScreenState extends State<BannerScreen> {
             const SizedBox(
               height: 16,
             ),
-
-            const BannersList(),
+            const CategoryList(),
           ],
         ),
       ),

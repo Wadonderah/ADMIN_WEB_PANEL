@@ -1,15 +1,15 @@
-import 'package:admin_web_panel/global/global_vars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import '../global/global_vars.dart';
 
-class BannerViewModel {
-  uploadImageToStorage() async {
+class CategoryViewModel {
+  uploadCategoryImageToStorage() async {
     imageDOCID = fileName! +
         DateTime.now().millisecondsSinceEpoch.toString() +
         fileName.toString();
     Reference bannerRef = FirebaseStorage.instance
         .ref()
-        .child("banners")
+        .child("CategorY Images")
         .child(imageDOCID.toString());
 
     UploadTask uploadTask = bannerRef.putData(imageFile!);
@@ -19,16 +19,20 @@ class BannerViewModel {
     return downloadUrl;
   }
 
-  saveBannerImageInfoToFirestore() async {
-    String downloadUrl = await uploadImageToStorage();
-    await FirebaseFirestore.instance.collection("banners").doc(imageDOCID).set({
+  saveCategoryInfoToFirestore() async {
+    String downloadUrl = await uploadCategoryImageToStorage();
+    await FirebaseFirestore.instance
+        .collection("categories")
+        .doc(imageDOCID)
+        .set({
       "image": downloadUrl,
+      "name": categoryName,
     });
   }
 
-  readBannersFromFirestore() {
+  readCategoriesFromFirestore() {
     Stream<QuerySnapshot> bannerStreamQuerySnapshot =
-        FirebaseFirestore.instance.collection("banners").snapshots();
+        FirebaseFirestore.instance.collection("categories").snapshots();
     return bannerStreamQuerySnapshot;
   }
 }

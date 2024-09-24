@@ -2,6 +2,7 @@ import 'package:admin_web_panel/view/widgets/my_appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'banner_screen.dart';
+import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -63,7 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // Upload Category Button.
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CategoryScreen()));
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 110,
